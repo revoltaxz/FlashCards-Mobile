@@ -1,12 +1,17 @@
 import React from 'react';
+import { createStore, applyMiddleware } from 'redux'
+import { Provider } from 'react-redux'
 import { StyleSheet, Text, View } from 'react-native';
+import { decks } from "./reducers";
+import thunk from 'redux-thunk'
+import Tabs from './components/Tabs/Tabs'
 
 export default class App extends React.Component {
   render() {
     return (
-      <View style={styles.container}>
-        <Text>Open up App.js to start working on your app!</Text>
-      </View>
+      <Provider store={createStore(decks, applyMiddleware(thunk))}>
+        <Tabs />
+      </Provider>
     );
   }
 }
