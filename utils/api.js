@@ -35,7 +35,7 @@ export const getDecks = () => {
 }
 
 export function createDeck(deck) {
-  return AsyncStorage.mergeItem(STORAGE_KEY, JSON.stringify(deck));
+  return AsyncStorage.mergeItem(STORAGE_KEY, JSON.stringify({deck}));
 }
 
 export function initialData() {

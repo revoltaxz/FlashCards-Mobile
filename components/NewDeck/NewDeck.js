@@ -15,10 +15,9 @@ class NewDeck extends React.Component {
     const { dispatch } = this.props
     const data = this.state
     if ( data.title !== '') {
-      AsyncStorage.mergeItem(STORAGE_KEY, JSON.stringify(data))
       dispatch(addDeck(data))
       this.setState({ title: '' })
-      alert('Success! Deck created.')
+      alert('Success! Deck created!.')
     }
   }
 

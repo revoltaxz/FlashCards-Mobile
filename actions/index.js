@@ -9,6 +9,5 @@ export const getAllDecks = () => dispatch => {
 
 
 export const addDeck = (deck) => dispatch => {
-  console.log(deck)
   dispatch({ type: ADD_DECK, payload: deck })
 }
