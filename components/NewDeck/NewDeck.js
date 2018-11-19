@@ -1,10 +1,25 @@
 import React from 'react'
-import {StyleSheet, Text, TextInput, TouchableOpacity} from 'react-native'
+import {AsyncStorage, StyleSheet, Text, TextInput, TouchableOpacity} from 'react-native'
 import { SafeAreaView } from 'react-navigation';
+import { connect } from 'react-redux'
+import { addDeck } from "../../actions";
+import {STORAGE_KEY} from "../../utils/api";
 
 class NewDeck extends React.Component {
   state = {
-    text: ''
+    title: '',
+    questions: []
+  }
+
+  submit = () => {
+    const { dispatch } = this.props
+    const data = this.state
+    if ( data.title !== '') {
+      AsyncStorage.mergeItem(STORAGE_KEY, JSON.stringify(data))
+      dispatch(addDeck(data))
+      this.setState({ title: '' })
+      alert('Success! Deck created.')
+    }
   }
 
   render () {
@@ -12,17 +27,17 @@ class NewDeck extends React.Component {
       <SafeAreaView style={style.container}>
         <Text style={{fontSize: 28}}>What is the title of your new deck ?</Text>
 
-      <TextInput
-    value={this.state.text}
-    style={style.input}
-    onChangeText={text => this.setState({text})}/>
+        <TextInput
+      value={this.state.text}
+      style={style.input}
+      onChangeText={title => this.setState({title})}/>
 
-    <TouchableOpacity
-      onPress={this.addNewDeck}
-      style={style.submitButton}>
-      <Text style={style.submitText}>Submit</Text>
+        <TouchableOpacity
+          onPress={this.submit}
+          style={style.submitButton}>
+          <Text style={style.submitText}>Submit</Text>
 
-    </TouchableOpacity>
+        </TouchableOpacity>
       </SafeAreaView>
     )
   }
@@ -54,4 +69,4 @@ const style = StyleSheet.create({
     textAlign: 'center',
   },
 });
-export default NewDeck
+export default connect()(NewDeck)
