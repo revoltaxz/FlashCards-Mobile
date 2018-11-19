@@ -8,8 +8,9 @@ import Tabs from './components/Tabs/Tabs'
 
 export default class App extends React.Component {
   render() {
+    const store = createStore(decks, applyMiddleware(thunk))
     return (
-      <Provider store={createStore(decks, applyMiddleware(thunk))}>
+      <Provider store={store}>
         <Tabs />
       </Provider>
     );
