@@ -1,5 +1,5 @@
 import React from 'react'
-import { FlatList, View } from 'react-native'
+import { FlatList, View, TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { getAllDecks } from "../../actions";
@@ -11,7 +11,13 @@ class DeckList extends React.Component {
   }
 
   renderItem = ({ item }) => {
-    return <Deck title={item.title} questions={item.questions} />
+    return (
+      <View>
+        <TouchableOpacity onPress={() => this.props.navigation.navigate('DeckDetails', item)}>
+          <Deck title={item.title} questions={item.questions} />
+        </TouchableOpacity>
+      </View>
+    )
   }
 
   render () {

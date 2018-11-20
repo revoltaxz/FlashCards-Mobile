@@ -1,4 +1,4 @@
-import {ADD_DECK, GET_DECKS} from "../utils/actionTypes";
+import {ADD_DECK, GET_DECKS, ADD_QUESTION} from "../utils/actionTypes";
 
 const initialState = {
   decks: [
@@ -34,6 +34,8 @@ export const decks = ( state = initialState, action ) => {
     case ADD_DECK: {
       return { ...state, decks: [...state.decks, action.payload ]}
     }
+    case ADD_QUESTION:
+      return {}
     default:
       return state
   }
