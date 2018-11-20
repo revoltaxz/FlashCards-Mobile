@@ -1,9 +1,12 @@
 import React from 'react'
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
+import { connect } from 'react-redux'
 
 class DeckDetails extends React.Component {
   render () {
-    const { title, questions } = this.props.navigation.state.params
+    let { title } = this.props.navigation.state.params
+    const correctDeck = this.props.decks.filter(deck => deck.title === title)[0]
+    const questions = correctDeck.questions
     return (
       <View style={styles.container}>
         <View style={{ alignItems: 'center', justifyContent: 'center' }}>
@@ -68,4 +71,9 @@ const styles = StyleSheet.create({
   }
 });
 
-export default DeckDetails
+const mapStateToProps = state => ({
+  decks: state.decks
+})
+
+
+export default connect(mapStateToProps)(DeckDetails)

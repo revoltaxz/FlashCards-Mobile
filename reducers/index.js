@@ -35,7 +35,21 @@ export const decks = ( state = initialState, action ) => {
       return { ...state, decks: [...state.decks, action.payload ]}
     }
     case ADD_QUESTION:
-      return {}
+      const { title, question, answer } = action.payload
+      const data = { question, answer }
+      return {
+        ...state, decks: state.decks.map(deck => {
+          if ( deck.title === title ) {
+            deck = {
+              ...deck, questions: [
+                ...deck.questions,
+                data
+              ]
+            }
+          }
+          return deck
+        })
+      }
     default:
       return state
   }

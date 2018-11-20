@@ -10,8 +10,8 @@ class NewQuestion extends React.Component {
   }
 
   submit = () => {
-    const { question, answer } = this.state
     const { title, questions } = this.props.navigation.state.params
+    const { question, answer } = this.state
 
     if (question === '') {
       Alert.alert('Oops!', 'Question field cannot be empty');
@@ -22,12 +22,7 @@ class NewQuestion extends React.Component {
       return;
     }
 
-    const data = {
-      "title": title,
-      "questions": [
-        {question, answer}
-      ]
-    }
+    const data = {title, questions, question, answer }
 
 
 
@@ -37,7 +32,11 @@ class NewQuestion extends React.Component {
       [
         {
           text: 'OK', onPress: () =>
-            this.props.navigation.goBack()
+            this.props.navigation.navigate('DeckDetails', {
+              title,
+              questions
+            }),
+
         }
       ],);
   }

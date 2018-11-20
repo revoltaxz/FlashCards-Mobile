@@ -1,9 +1,8 @@
 import React from 'react'
-import {AsyncStorage, StyleSheet, Text, TextInput, TouchableOpacity} from 'react-native'
+import {Alert, StyleSheet, Text, TextInput, TouchableOpacity} from 'react-native'
 import { SafeAreaView } from 'react-navigation';
 import { connect } from 'react-redux'
 import { addDeck } from "../../actions";
-import {STORAGE_KEY} from "../../utils/api";
 
 class NewDeck extends React.Component {
   state = {
@@ -17,14 +16,24 @@ class NewDeck extends React.Component {
     if ( data.title !== '') {
       dispatch(addDeck(data))
       this.setState({ title: '' })
-      alert('Success! Deck created!.')
+      Alert.alert('Successful', 'Question Added Successfully',
+        [
+          {
+            text: 'OK', onPress: () =>
+              this.props.navigation.navigate('DeckDetails', {
+                title: data.title,
+                questions: []
+              }),
+
+          }
+        ],);
     }
   }
 
   render () {
     return (
       <SafeAreaView style={style.container}>
-        <Text style={{fontSize: 28}}>What is the title of your new deck ?</Text>
+        <Text style={{fontSize: 24, textAlign: 'center'}}>What is the title of your new deck ?</Text>
 
         <TextInput
       value={this.state.text}
@@ -34,7 +43,7 @@ class NewDeck extends React.Component {
         <TouchableOpacity
           onPress={this.submit}
           style={style.submitButton}>
-          <Text style={style.submitText}>Submit</Text>
+          <Text style={style.submitButtonText}>Submit</Text>
 
         </TouchableOpacity>
       </SafeAreaView>
@@ -58,12 +67,12 @@ const style = StyleSheet.create({
     margin: 24,
   },
   submitButton: {
-    backgroundColor: '#000',
-    padding: 10,
-    height: 44,
+    backgroundColor: '#70dd2f',
+    padding: 20,
   },
-  submitText: {
+  submitButtonText: {
     color: '#fff',
+    fontWeight: 'bold',
     fontSize: 22,
     textAlign: 'center',
   },

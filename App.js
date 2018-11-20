@@ -10,6 +10,9 @@ import DeckList from "./components/DeckList/DeckList";
 import NewDeck from "./components/NewDeck/NewDeck";
 import DeckDetails from "./components/DeckDetails/DeckDetails";
 import NewQuestion from './components/NewQuestion/NewQuestion'
+import { Ionicons } from '@expo/vector-icons'
+import { setNotification } from "./utils/notification";
+import Quiz from "./components/Quiz/Quiz";
 
 
 const store = createStore(decks, applyMiddleware(thunk))
@@ -19,8 +22,22 @@ store.subscribe( () => {
 })
 
 const Tabs = createBottomTabNavigator({
-    DeckList: DeckList,
-    NewDeck: NewDeck,
+    DeckList: {
+      screen: DeckList,
+      navigationOptions: {
+        tabBarIcon: ({ tintColor }) => (
+          <Ionicons name='ios-home' color={tintColor} size={25} />
+        )
+      }
+    },
+    NewDeck: {
+      screen: NewDeck,
+      navigationOptions: {
+        tabBarIcon: ({ tintColor }) => (
+          <Ionicons name='ios-add' color={tintColor} size={25} />
+        )
+      }
+    },
 })
 
 const AppNavigation = createAppContainer(createStackNavigator({
@@ -41,11 +58,21 @@ const AppNavigation = createAppContainer(createStackNavigator({
     navigationOptions: {
       title: 'New Question'
     }
+  },
+  Quiz: {
+    screen: Quiz,
+    navigationOptions: {
+      title: 'Quiz'
+    }
   }
 }))
 
 
 export default class App extends React.Component {
+  componentDidMount () {
+    setNotification()
+  }
+
   render() {
     return (
       <Provider store={store}>

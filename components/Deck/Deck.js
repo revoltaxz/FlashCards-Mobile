@@ -7,7 +7,7 @@ const Deck = ({ title, questions }) => {
   return (
     <SafeAreaView style={{ padding: 20, flex: 1, textAlign: 'center' }}>
       <Card title={title}>
-        <Text>{`Have ${questions.length} cards`}</Text>
+        <Text style={{ textAlign: 'center', fontSize: 16}}>{`${questions.length} cards`}</Text>
       </Card>
     </SafeAreaView>
   )
