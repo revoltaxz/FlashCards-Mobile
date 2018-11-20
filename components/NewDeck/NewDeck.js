@@ -1,5 +1,5 @@
 import React from 'react'
-import {Alert, StyleSheet, Text, TextInput, TouchableOpacity} from 'react-native'
+import {Alert, StyleSheet, Text, TextInput, TouchableOpacity, KeyboardAvoidingView} from 'react-native'
 import { SafeAreaView } from 'react-navigation';
 import { connect } from 'react-redux'
 import { addDeck } from "../../actions";
@@ -32,21 +32,23 @@ class NewDeck extends React.Component {
 
   render () {
     return (
-      <SafeAreaView style={style.container}>
-        <Text style={{fontSize: 24, textAlign: 'center'}}>What is the title of your new deck ?</Text>
+      <KeyboardAvoidingView behavior="padding" style={style.container}>
+        <SafeAreaView>
+          <Text style={{fontSize: 24, textAlign: 'center'}}>What is the title of your new deck ?</Text>
 
-        <TextInput
-      value={this.state.text}
-      style={style.input}
-      onChangeText={title => this.setState({title})}/>
+          <TextInput
+        value={this.state.text}
+        style={style.input}
+        onChangeText={title => this.setState({title})}/>
 
-        <TouchableOpacity
-          onPress={this.submit}
-          style={style.submitButton}>
-          <Text style={style.submitButtonText}>Submit</Text>
+          <TouchableOpacity
+            onPress={this.submit}
+            style={style.submitButton}>
+            <Text style={style.submitButtonText}>Submit</Text>
 
-        </TouchableOpacity>
-      </SafeAreaView>
+          </TouchableOpacity>
+        </SafeAreaView>
+      </KeyboardAvoidingView>
     )
   }
 }
@@ -55,7 +57,7 @@ const style = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    paddingTop: 20,
+    justifyContent: 'center'
   },
   input: {
     width: 300,

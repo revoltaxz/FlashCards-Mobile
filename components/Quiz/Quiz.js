@@ -1,6 +1,7 @@
 import React from 'react';
 import {View, StyleSheet, TouchableOpacity, Text} from 'react-native';
 import { NavigationActions } from 'react-navigation'
+import { clearLocalNotifications, setNotification } from "../../utils/notification";
 
 export default class Quiz extends React.Component {
 
@@ -38,6 +39,10 @@ export default class Quiz extends React.Component {
     const isQuestionAvailable = questionIndex < questions.length;
     const questionLeft = questions.length - questionIndex;
 
+    if ( questionIndex === questions.length ) {
+      clearLocalNotifications().then(setNotification);
+    }
+
     return (
       <View style={{flex: 1}}>
         {isQuestionAvailable ? (
@@ -49,7 +54,7 @@ export default class Quiz extends React.Component {
               </View>
             </View>
 
-            <View style={{flex: 4}}>
+            <View style={{flex: 2}}>
               <View>
                 {show ? (
                   <View style={{alignItems: 'center'}}>
@@ -72,7 +77,7 @@ export default class Quiz extends React.Component {
               </View>
             </View>
 
-            <View style={{alignItems: 'center', justifyContent: 'space-around', flex: 2}}>
+            <View style={{alignItems: 'center', justifyContent: 'flex-start', flex: 2}}>
               <View style={styles.container}>
 
                 <TouchableOpacity onPress={this.onCorrect}>
@@ -92,7 +97,7 @@ export default class Quiz extends React.Component {
           <View style={[styles.container, { padding: 20, alignItems: 'center' }]}>
             <Text>Score: {correctAnswers}</Text>
 
-            <View style={{alignItems: 'center', justifyContent: 'space-around', flex: 2}}>
+            <View style={{alignItems: 'center', flex: 2}}>
               <View style={styles.container}>
 
                 <TouchableOpacity onPress={this.startQuiz}>
@@ -120,7 +125,7 @@ const styles = StyleSheet.create({
   correctButton: {
     backgroundColor: '#4f7a0d',
     justifyContent: 'center',
-    padding: 20,
+    padding: 16,
     textAlign: 'center',
     width: 200,
     fontWeight: 'bold',
@@ -130,13 +135,13 @@ const styles = StyleSheet.create({
   incorrectButton: {
     backgroundColor: '#ff463f',
     justifyContent: 'center',
-    padding: 20,
+    padding: 16,
     textAlign: 'center',
     width: 200,
     fontWeight: 'bold',
     color: '#fff',
     fontSize: 20,
-    marginTop: 20
+    marginTop: 20,
   },
   answerButton: {
     fontSize: 18,

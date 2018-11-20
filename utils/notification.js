@@ -3,6 +3,11 @@ import {Notifications, Permissions} from 'expo';
 
 const NOTIFICATION_KEY = 'NOTIFICATIONS';
 
+export function clearLocalNotifications() {
+  return AsyncStorage.removeItem(NOTIFICATION_KEY)
+    .then(Notifications.cancelAllScheduledNotificationsAsync);
+}
+
 function createNotification() {
   return {
     title: 'Hey!',

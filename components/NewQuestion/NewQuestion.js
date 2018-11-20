@@ -1,5 +1,5 @@
 import React from 'react'
-import {Alert, StyleSheet, Text, TextInput, TouchableOpacity, View} from 'react-native';
+import {Alert, StyleSheet, Text, TextInput, TouchableOpacity, View, KeyboardAvoidingView } from 'react-native';
 import { connect } from 'react-redux'
 import { addQuestion } from "../../actions";
 
@@ -13,11 +13,11 @@ class NewQuestion extends React.Component {
     const { title, questions } = this.props.navigation.state.params
     const { question, answer } = this.state
 
-    if (question === '') {
+    if (question.trim().length === 0 ) {
       Alert.alert('Oops!', 'Question field cannot be empty');
       return;
     }
-    if (answer === '') {
+    if (answer.trim().length === 0 ) {
       Alert.alert('Oops!', 'Answer field cannot be empty');
       return;
     }
@@ -44,7 +44,7 @@ class NewQuestion extends React.Component {
   render () {
     const { question, answer } = this.state
     return (
-      <View style={style.container}>
+      <KeyboardAvoidingView behavior="padding" style={style.container}>
         <Text>Question is </Text>
         <TextInput
           defaultValue="Question"
@@ -64,7 +64,7 @@ class NewQuestion extends React.Component {
           <Text style={style.submitText}>Submit</Text>
         </TouchableOpacity>
 
-      </View>
+      </KeyboardAvoidingView>
     )
   }
 }
@@ -74,6 +74,7 @@ const style = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     paddingTop: 20,
+    justifyContent: 'center'
   },
   input: {
     width: 300,
